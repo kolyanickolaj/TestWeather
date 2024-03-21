@@ -30,6 +30,12 @@ final class StartViewModel: ObservableObject {
     func search() {
         guard !textToSearch.isEmpty else { return }
         
+        guard !textToSearch.trimmingCharacters(in: .whitespaces).isEmpty else {
+            errorText = "Enter valid location name"
+            isShowingAlert = true
+            return
+        }
+        
         isProcessing = true
         
         Task {
