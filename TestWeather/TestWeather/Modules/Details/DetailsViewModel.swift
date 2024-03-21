@@ -14,8 +14,7 @@ final class DetailsViewModel: ObservableObject {
     @Published var isShowingAlert = false
     @Published var isCelsius = true
     @Published var image: Image?
-    
-    var weatherData: WeatherData
+    @Published var weatherData: WeatherData
     
     init(weatherData: WeatherData,
          weatherFetcher: WeatherFetcherProtocol)
