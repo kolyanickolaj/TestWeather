@@ -11,7 +11,7 @@ import SwiftUI
 struct TestWeatherApp: App {
     var body: some Scene {
         WindowGroup {
-            StartView(viewModel: StartViewModel())
+            StartView(viewModel: StartViewModel(context: Context()))
         }
     }
 }

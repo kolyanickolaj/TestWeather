@@ -10,11 +10,6 @@ import Combine
 
 protocol LocationSearcherProtocol {
     func searchLocations(_ location: String) async throws -> [Location]
-//    associatedtype Request
-//    associatedtype Response: Codable
-
-//    func fetch(_ request: URLRequest, queryItems: [String: String]) async throws -> Codable
-//    func fetchData(_ request: URLSession, queryItems: [String: String]) async throws -> Data
 }
 
 final class LocationSearcher: LocationSearcherProtocol {

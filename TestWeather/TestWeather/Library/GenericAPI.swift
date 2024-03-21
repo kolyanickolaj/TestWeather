@@ -11,6 +11,7 @@ protocol GenericAPI {
     var session: URLSession { get }
     
     func fetch<T: Codable>(request: URLRequest) async throws -> T
+    func fetchData(request: URLRequest) async throws -> Data
 }
 
 extension GenericAPI {
@@ -39,10 +40,7 @@ extension GenericAPI {
             
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
-            // TODO: Check description
             let description = (error as NSError).description
-            
-            print(description)
             
             throw ApiError.jsonDecodingFailure(description: description)
         }

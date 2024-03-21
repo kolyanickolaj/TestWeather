@@ -9,24 +9,25 @@ import SwiftUI
 
 struct StartView: View {
     @StateObject var viewModel: StartViewModel
+    @State private var path = NavigationPath()
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 List {
                     ForEach(viewModel.searchHistory, id: \.self) { item in
-                        NavigationLink {
-                            // todo
+                        Button {
+                            viewModel.onTapLocation(item)
                         } label: {
-                            Text(item.name)
+                            Text("\(item.name), \(item.country)")
                         }
                     }
                 }
                 .searchable(text: $viewModel.textToSearch, prompt: "Search City")
                 .searchSuggestions {
                     ForEach(viewModel.searchResults, id: \.self) { item in
-                        NavigationLink {
-                            // todo
+                        Button {
+                            viewModel.onTapSuggestion(item)
                         } label: {
                             Text("\(item.name), \(item.country)")
                                 .foregroundColor(.blue)
@@ -38,8 +39,14 @@ struct StartView: View {
                     Text("No search history")
                 }
             }
+            .navigationDestination(for: DetailsDependency.self) { dependency in
+                DetailsView(viewModel: DetailsViewModel(dependency: dependency))
+            }
+        }
+        .onChange(of: viewModel.detailsDependency) { data in
+            guard let data else { return }
             
-            
+            path.append(data)
         }
         .onSubmit(of: .search) {
             viewModel.search()
@@ -49,9 +56,12 @@ struct StartView: View {
                 LoadingView()
             }
         }
+        .alert(viewModel.errorText, isPresented: $viewModel.isShowingAlert) {
+            Button("OK", role: .cancel) { }
+        }
     }
 }
 
 #Preview {
-    StartView(viewModel: StartViewModel())
+    StartView(viewModel: StartViewModel(context: Context()))
 }
