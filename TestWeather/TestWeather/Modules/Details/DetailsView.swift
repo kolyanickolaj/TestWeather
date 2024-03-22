@@ -142,5 +142,6 @@ struct DetailsView: View {
                         humidity: 80,
                         windSpeed: 13,
                         icon: ""), 
-                weatherFetcher: WeatherFetcher()))
+                weatherFetcher: WeatherFetcher(),
+                reachabilityService: ReachabilityService()))
 }

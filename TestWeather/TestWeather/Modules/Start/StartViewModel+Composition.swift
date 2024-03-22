@@ -11,6 +11,7 @@ extension StartViewModel {
     convenience init(context: AppContext) {
         self.init(
             locationSearcher: context.locationSearcher,
-            weatherFetcher: context.weatherFetcher)
+            weatherFetcher: context.weatherFetcher, 
+            reachabilityService: context.reachabilityService)
     }
 }

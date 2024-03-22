@@ -10,9 +10,11 @@ import Foundation
 protocol AppContext {
     var weatherFetcher: WeatherFetcherProtocol { get }
     var locationSearcher: LocationSearcherProtocol { get }
+    var reachabilityService: ReachabilityServiceProtocol { get }
 }
 
 final class Context: AppContext {
-    var weatherFetcher: WeatherFetcherProtocol = WeatherFetcher()
-    var locationSearcher: LocationSearcherProtocol = LocationSearcher()
+    lazy var weatherFetcher: WeatherFetcherProtocol = WeatherFetcher()
+    lazy var locationSearcher: LocationSearcherProtocol = LocationSearcher()
+    lazy var reachabilityService: ReachabilityServiceProtocol = ReachabilityService()
 }

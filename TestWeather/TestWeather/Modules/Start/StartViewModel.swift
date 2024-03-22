@@ -10,12 +10,15 @@ import Foundation
 final class StartViewModel: ObservableObject {
     private let locationSearcher: LocationSearcherProtocol
     private let weatherFetcher: WeatherFetcherProtocol
+    private let reachabilityService: ReachabilityServiceProtocol
     
     init(locationSearcher: LocationSearcherProtocol,
-         weatherFetcher: WeatherFetcherProtocol)
+         weatherFetcher: WeatherFetcherProtocol,
+         reachabilityService: ReachabilityServiceProtocol)
     {
         self.locationSearcher = locationSearcher
         self.weatherFetcher = weatherFetcher
+        self.reachabilityService = reachabilityService
     }
     
     var errorText = ""
@@ -30,30 +33,17 @@ final class StartViewModel: ObservableObject {
     func search() {
         guard !textToSearch.isEmpty else { return }
         
-        guard !textToSearch.trimmingCharacters(in: .whitespaces).isEmpty else {
-            errorText = "Enter valid location name"
-            isShowingAlert = true
+        guard reachabilityService.isReachable else {
+            showError("No Internet connection")
             return
         }
         
-        isProcessing = true
-        
-        Task {
-            do {
-                let results = try await locationSearcher.searchLocations(textToSearch)
-                
-                DispatchQueue.main.async { [weak self] in
-                    self?.isProcessing = false
-                    self?.searchResults = results
-                }
-            } catch {
-                DispatchQueue.main.async { [weak self] in
-                    self?.isProcessing = false
-                    self?.errorText = error.localizedDescription
-                    self?.isShowingAlert = true
-                }
-            }
+        guard !textToSearch.trimmingCharacters(in: .whitespaces).isEmpty else {
+            showError("Enter valid location name")
+            return
         }
+        
+        handleSearch()
     }
     
     func onTapSuggestion(_ suggestion: Location) {
@@ -67,6 +57,26 @@ final class StartViewModel: ObservableObject {
         getWeatherData(for: location)
     }
     
+    private func handleSearch() {
+        isProcessing = true
+        
+        Task {
+            do {
+                let results = try await locationSearcher.searchLocations(textToSearch)
+                
+                DispatchQueue.main.async { [weak self] in
+                    self?.isProcessing = false
+                    self?.searchResults = results
+                }
+            } catch {
+                DispatchQueue.main.async { [weak self] in
+                    self?.isProcessing = false
+                    self?.showError(error)
+                }
+            }
+        }
+    }
+    
     private func getWeatherData(for location: Location) {
         isProcessing = true
         
@@ -78,15 +88,28 @@ final class StartViewModel: ObservableObject {
                     
                     self.isProcessing = false
                     self.detailsDependency = DetailsDependency(weatherData: data,
-                                                                weatherFetcher: self.weatherFetcher)
+                                                               weatherFetcher: self.weatherFetcher, 
+                                                               reachabilityService: self.reachabilityService)
                 }
             } catch {
                 DispatchQueue.main.async { [weak self] in
                     self?.isProcessing = false
-                    self?.errorText = error.localizedDescription
-                    self?.isShowingAlert = true
+                    self?.showError(error)
                 }
             }
         }
+    }
+    
+    private func showError(_ error: Error) {
+        if let error = error as? ApiError {
+            showError(error.customDescription)
+        } else {
+            showError(error.localizedDescription)
+        }
+    }
+    
+    private func showError(_ error: String) {
+        errorText = error
+        isShowingAlert = true
     }
 }

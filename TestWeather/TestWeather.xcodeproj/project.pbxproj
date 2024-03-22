@@ -27,6 +27,8 @@
 		EDF11FCA2BABE7F400554B42 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF11FC92BABE7F400554B42 /* AppContext.swift */; };
 		EDF11FCC2BABE8FE00554B42 /* StartViewModel+Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF11FCB2BABE8FE00554B42 /* StartViewModel+Composition.swift */; };
 		EDF11FCE2BABEAF100554B42 /* DetailsViewModel+Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF11FCD2BABEAF100554B42 /* DetailsViewModel+Composition.swift */; };
+		EDFB11B12BADD1F40059C21C /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = EDFB11B02BADD1F40059C21C /* Reachability */; };
+		EDFB11B32BADD71C0059C21C /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFB11B22BADD71C0059C21C /* ReachabilityService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,7 @@
 		EDF11FC92BABE7F400554B42 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		EDF11FCB2BABE8FE00554B42 /* StartViewModel+Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StartViewModel+Composition.swift"; sourceTree = "<group>"; };
 		EDF11FCD2BABEAF100554B42 /* DetailsViewModel+Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsViewModel+Composition.swift"; sourceTree = "<group>"; };
+		EDFB11B22BADD71C0059C21C /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDFB11B12BADD1F40059C21C /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,6 +142,7 @@
 			children = (
 				EDF11FAE2BAB7F5100554B42 /* LocationSearcher.swift */,
 				EDF11FBE2BABB4AA00554B42 /* WeatherFetcher.swift */,
+				EDFB11B22BADD71C0059C21C /* ReachabilityService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -195,6 +200,9 @@
 			dependencies = (
 			);
 			name = TestWeather;
+			packageProductDependencies = (
+				EDFB11B02BADD1F40059C21C /* Reachability */,
+			);
 			productName = TestWeather;
 			productReference = EDF11F932BAB755900554B42 /* TestWeather.app */;
 			productType = "com.apple.product-type.application";
@@ -223,6 +231,9 @@
 				Base,
 			);
 			mainGroup = EDF11F8A2BAB755900554B42;
+			packageReferences = (
+				EDFB11AF2BADD1F40059C21C /* XCRemoteSwiftPackageReference "Reachability" */,
+			);
 			productRefGroup = EDF11F942BAB755900554B42 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -261,6 +272,7 @@
 				EDF11FC32BABC14900554B42 /* DetailsView.swift in Sources */,
 				EDF11FB82BAB836500554B42 /* Location.swift in Sources */,
 				EDF11FA82BAB76A800554B42 /* StartViewModel.swift in Sources */,
+				EDFB11B32BADD71C0059C21C /* ReachabilityService.swift in Sources */,
 				EDF11F972BAB755900554B42 /* TestWeatherApp.swift in Sources */,
 				EDF11FAD2BAB7D8E00554B42 /* Constants.swift in Sources */,
 				EDF11FC52BABC15B00554B42 /* DetailsViewModel.swift in Sources */,
@@ -474,6 +486,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EDFB11AF2BADD1F40059C21C /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EDFB11B02BADD1F40059C21C /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EDFB11AF2BADD1F40059C21C /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EDF11F8B2BAB755900554B42 /* Project object */;
 }

@@ -20,11 +20,13 @@ struct DetailsDependency: Identifiable, Hashable {
     
     let weatherData: WeatherData
     let weatherFetcher: WeatherFetcherProtocol
+    let reachabilityService: ReachabilityServiceProtocol
 }
 
 extension DetailsViewModel {
     convenience init(dependency: DetailsDependency) {
         self.init(weatherData: dependency.weatherData,
-                  weatherFetcher: dependency.weatherFetcher)
+                  weatherFetcher: dependency.weatherFetcher, 
+                  reachabilityService: dependency.reachabilityService)
     }
 }

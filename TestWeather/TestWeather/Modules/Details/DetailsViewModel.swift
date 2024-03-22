@@ -9,6 +9,7 @@ import SwiftUI
 
 final class DetailsViewModel: ObservableObject {
     private let weatherFetcher: WeatherFetcherProtocol
+    private let reachabilityService: ReachabilityServiceProtocol
     var errorText = ""
     
     @Published var isShowingAlert = false
@@ -17,10 +18,12 @@ final class DetailsViewModel: ObservableObject {
     @Published var weatherData: WeatherData
     
     init(weatherData: WeatherData,
-         weatherFetcher: WeatherFetcherProtocol)
+         weatherFetcher: WeatherFetcherProtocol,
+         reachabilityService: ReachabilityServiceProtocol)
     {
         self.weatherData = weatherData
         self.weatherFetcher = weatherFetcher
+        self.reachabilityService = reachabilityService
     }
     
     func onAppear() {
@@ -32,6 +35,11 @@ final class DetailsViewModel: ObservableObject {
     }
     
     private func loadIcon() {
+        guard reachabilityService.isReachable else {
+            showError("No Internet connection")
+            return
+        }
+        
         guard let url = URL(string: Constants.OpenWeather.imageUrl(code: weatherData.icon)) else { return }
 
         DispatchQueue.global().async {
@@ -54,10 +62,22 @@ final class DetailsViewModel: ObservableObject {
                 }
             } catch {
                 DispatchQueue.main.async { [weak self] in
-                    self?.errorText = error.localizedDescription
-                    self?.isShowingAlert = true
+                    self?.showError(error)
                 }
             }
         }
+    }
+    
+    private func showError(_ error: Error) {
+        if let error = error as? ApiError {
+            showError(error.customDescription)
+        } else {
+            showError(error.localizedDescription)
+        }
+    }
+    
+    private func showError(_ error: String) {
+        errorText = error
+        isShowingAlert = true
     }
 }
