@@ -1,0 +1,2 @@
+# TestWeather
+App has two screens. On the first screen you can try to find any location and if there is at least one suggestion in search results you can proceed to the second screen with weather details for that location on it. Also the first screen will show history of observed locations. This history is collected per one session only but can be modified to keep it between user sessions if needed.
