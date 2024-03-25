@@ -29,7 +29,6 @@
 		EDF11FCE2BABEAF100554B42 /* DetailsViewModel+Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF11FCD2BABEAF100554B42 /* DetailsViewModel+Composition.swift */; };
 		EDFB11B12BADD1F40059C21C /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = EDFB11B02BADD1F40059C21C /* Reachability */; };
 		EDFB11B32BADD71C0059C21C /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFB11B22BADD71C0059C21C /* ReachabilityService.swift */; };
-		EDFB11B52BB1924B0059C21C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EDFB11B42BB1924B0059C21C /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +54,6 @@
 		EDF11FCB2BABE8FE00554B42 /* StartViewModel+Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StartViewModel+Composition.swift"; sourceTree = "<group>"; };
 		EDF11FCD2BABEAF100554B42 /* DetailsViewModel+Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsViewModel+Composition.swift"; sourceTree = "<group>"; };
 		EDFB11B22BADD71C0059C21C /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
-		EDFB11B42BB1924B0059C21C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +71,6 @@
 		EDF11F8A2BAB755900554B42 = {
 			isa = PBXGroup;
 			children = (
-				EDFB11B42BB1924B0059C21C /* README.md */,
 				EDF11F952BAB755900554B42 /* TestWeather */,
 				EDF11F942BAB755900554B42 /* Products */,
 			);
@@ -251,7 +248,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDFB11B52BB1924B0059C21C /* README.md in Resources */,
 				EDF11F9E2BAB755D00554B42 /* Preview Assets.xcassets in Resources */,
 				EDF11F9B2BAB755D00554B42 /* Assets.xcassets in Resources */,
 			);
