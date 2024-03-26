@@ -17,6 +17,16 @@ final class DetailsViewModel: ObservableObject {
     @Published var image: Image?
     @Published var weatherData: WeatherData
     
+    var iconURL: URL? {
+        guard !weatherData.icon.isEmpty,
+              !weatherData.icon.trimmingCharacters(in: .whitespaces).isEmpty
+        else {
+            return nil
+        }
+        
+        return URL(string: Constants.OpenWeather.imageUrl(code: weatherData.icon))
+    }
+    
     init(weatherData: WeatherData,
          weatherFetcher: WeatherFetcherProtocol,
          reachabilityService: ReachabilityServiceProtocol)
@@ -40,10 +50,10 @@ final class DetailsViewModel: ObservableObject {
             return
         }
         
-        guard let url = URL(string: Constants.OpenWeather.imageUrl(code: weatherData.icon)) else { return }
+        guard let iconURL else { return }
 
         DispatchQueue.global().async {
-            guard let data = try? Data(contentsOf: url),
+            guard let data = try? Data(contentsOf: iconURL),
                   let fetchedImage: UIImage = UIImage(data: data)
             else { return }
             

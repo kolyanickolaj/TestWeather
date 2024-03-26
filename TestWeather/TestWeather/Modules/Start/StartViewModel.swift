@@ -30,6 +30,16 @@ final class StartViewModel: ObservableObject {
     @Published var isShowingAlert = false
     @Published var detailsDependency: DetailsDependency?
     
+    var formattedTextToSearch: String? {
+        guard !textToSearch.isEmpty,
+              !textToSearch.trimmingCharacters(in: .whitespaces).isEmpty
+        else {
+            return nil
+        }
+        
+        return textToSearch
+    }
+    
     func search() {
         guard !textToSearch.isEmpty else { return }
         
@@ -58,11 +68,13 @@ final class StartViewModel: ObservableObject {
     }
     
     private func handleSearch() {
+        guard let formattedTextToSearch else { return }
+        
         isProcessing = true
         
         Task {
             do {
-                let results = try await locationSearcher.searchLocations(textToSearch)
+                let results = try await locationSearcher.searchLocations(formattedTextToSearch)
                 
                 DispatchQueue.main.async { [weak self] in
                     self?.isProcessing = false

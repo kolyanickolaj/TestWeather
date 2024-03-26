@@ -13,7 +13,8 @@ struct Location: Codable, Hashable {
     let lat: Double
     let lon: Double
     
-//        enum CodingKeys: String, CodingKey {
-//            case voiceId = "voice_id"
-//        }
+    static let mock: Location = Location(name: "Miami Beach",
+                                         country: "USA",
+                                         lat: 13.13,
+                                         lon: 31.31)
 }

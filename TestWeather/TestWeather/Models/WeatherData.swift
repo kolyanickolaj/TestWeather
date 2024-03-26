@@ -16,5 +16,13 @@ struct WeatherData: Codable, Hashable, Identifiable {
     let feelsLikeTemperature: Double
     let humidity: Double
     let windSpeed: Double
-    let icon: String
+    var icon: String
+    
+    static let mock: WeatherData = WeatherData(location: Location.mock,
+                                               description: "some Description",
+                                               temperature: 13,
+                                               feelsLikeTemperature: 31,
+                                               humidity: 13,
+                                               windSpeed: 31,
+                                               icon: "x10")
 }
